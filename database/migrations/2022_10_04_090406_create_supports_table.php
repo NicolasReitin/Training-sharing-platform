@@ -16,12 +16,19 @@ return new class extends Migration
         Schema::create('supports', function (Blueprint $table) {
             $table->id();
             $table->string('titre');
-            $table->text('description');
-            $table->date('date_debut');
-            $table->date('date_fin');
-            $table->text('piece_jointe');
-            $table->text('sequence');
-            $table->date('date_ajout');
+            $table->text('description')
+                ->nullable();
+            $table->date('date_debut')
+                ->nullable();
+            $table->date('date_fin')
+                ->nullable();
+            $table->text('piece_jointe')
+                ->nullable();
+            $table->text('sequence')
+                ->nullable();
+            $table->date('date_ajout')
+                ->nullable();
+            $table->foreignId(column: 'users_id')->constrained(table: 'user')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

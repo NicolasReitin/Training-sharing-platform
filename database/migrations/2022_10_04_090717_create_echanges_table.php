@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('echanges', function (Blueprint $table) {
             $table->id();
             $table->text('commentaire');
+            $table->foreignId(column: 'admins_id')->constrained(table: 'admin')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId(column: 'users_id')->constrained(table: 'user')->onUpdate('cascade')->onDelete('cascade');
             // $table->dateTime('date_ajout');
             $table->timestamps();
         });
