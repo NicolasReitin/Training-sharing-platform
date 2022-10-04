@@ -15,6 +15,13 @@ return new class extends Migration
     {
         Schema::create('supports', function (Blueprint $table) {
             $table->id();
+            $table->string('titre');
+            $table->text('description');
+            $table->date('date_debut');
+            $table->date('date_fin');
+            $table->text('piece_jointe');
+            $table->text('sequence');
+            $table->date('date_ajout');
             $table->timestamps();
         });
     }
