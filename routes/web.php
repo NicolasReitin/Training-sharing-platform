@@ -26,8 +26,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::middleware(['auth', 'role:admin'])->name('dashboard')->group(function () {
     Route::get('/private', function () {
-        return 'Bonjour Admin';
-        // return view('Auth/dashboard');
+        // return 'Bonjour Admin';
+        return view('Auth/dashboard');
     });
 });
 //->middleware(['role:admin'])  //middleware for admin only

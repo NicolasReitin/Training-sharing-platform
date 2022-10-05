@@ -33,7 +33,7 @@
                         @auth
                             @foreach ( Auth::user()->roles as $role)
                                 @if ($role->name === 'Admin')
-                                    <li><a href="{{ route('dashboard') }}" style="text-decoration: none;">Admin Dashboard</a></li>
+                                    <li><a href="{{ route('dashboard') }}">Admin Dashboard</a></li>
                                     @break
                                 @endif
                             @endforeach
