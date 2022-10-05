@@ -30,7 +30,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        
+                        @auth
+                            @foreach ( Auth::user()->roles as $role)
+                                @if ($role->name === 'Admin')
+                                    <li><a href="{{ route('dashboard') }}" style="text-decoration: none;">Admin Dashboard</a></li>
+                                    @break
+                                @endif
+                            @endforeach
+                        @endauth                    
                     </ul>
 
                     <!-- Right Side Of Navbar -->
