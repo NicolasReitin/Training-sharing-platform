@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+
+class EnsureUserHasRole
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     */
+    public function handle(Request $request, Closure $next, string $role)
+    {
+        // if ($request->user()->role === $role) return $next($request); //si un seul role 
+        // dd($request); 
+        if ($request->user()->roles()->where('name', '=', $role)->exists()) return $next($request); // si multi role
+
+        abort(403);
+    }
+}
