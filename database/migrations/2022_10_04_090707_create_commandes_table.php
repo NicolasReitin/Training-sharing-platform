@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('commandes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId(column: 'admins_id')->constrained(table: 'admins')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId(column: 'supports_id')->constrained(table: 'supports')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
