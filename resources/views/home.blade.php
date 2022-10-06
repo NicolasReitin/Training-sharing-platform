@@ -1,23 +1,33 @@
 @extends('layouts.app')
 
+
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+    <div class="container-fluid ms-2 d-flex">
+        @include('layouts.sidebar')
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+        <div class="main ms-5">
+            <div>
+                <h1>Supports de cours</h1>
+                <div class="cards mt-5">
+                    @foreach ($supports as $support)
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ $support->titre }}</h3>
+                            <p class="card-text">Description : <br>{{ $support->description }}</p>
+                            <div class="button">
+                                <a href="#" class="btn btn-secondary">+ d'infos</a>
+                            </div>
                         </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
+                    </div>
+                @endforeach
                 </div>
+                
             </div>
+            
         </div>
     </div>
-</div>
+
+
+    @include('layouts.footer')
 @endsection
+

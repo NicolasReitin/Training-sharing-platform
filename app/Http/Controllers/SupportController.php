@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\support;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoresupportRequest;
 use App\Http\Requests\UpdatesupportRequest;
 
@@ -15,7 +16,9 @@ class SupportController extends Controller
      */
     public function index()
     {
-        //
+        // dd(Support::where('users_id', '=', Auth::user()->id)->get());
+        $supports = Support::where('users_id', '=', Auth::user()->id)->get();
+        return view('mysupports', ['supports' => $supports]);
     }
 
     /**

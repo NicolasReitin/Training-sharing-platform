@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\support;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('home', ['supports' => Support::all()]);
     }
+
+    public function show(support $support)
+    {
+        
+    }
+
+    
 }

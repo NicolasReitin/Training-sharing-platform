@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SupportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +23,7 @@ Route::get('/', function () {
 Auth::routes();
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
 Route::middleware(['auth', 'role:admin'])->name('dashboard')->group(function () {
@@ -31,3 +33,7 @@ Route::middleware(['auth', 'role:admin'])->name('dashboard')->group(function () 
     });
 });
 //->middleware(['role:admin'])  //middleware for admin only
+
+
+
+Route::get('/mysupports', [SupportController::class, 'index'])->name('mysupports');
