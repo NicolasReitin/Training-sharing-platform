@@ -4,7 +4,9 @@
         color: black;
     }
     a:hover{
-        color: gold;
+        color: black;
+        font-weight: bold;
+
     }
 }
 .navbar-nav{
@@ -14,6 +16,7 @@
     }
     a:hover{
         color: gold;
+        font-weight: bold;
         background: #212529;
     }
 }
@@ -29,13 +32,14 @@
 }
 
 .main{
-    width: 100%;
+    width: 90%;
+    margin-left: 10%;
     h1{
         text-align: center;
     }
     .cards{
         display: grid;
-        gap: 50px !important;
+        gap: 80px !important;
         grid-template-columns: repeat(auto-fill,22rem);
         grid-template-rows: repeat(auto-fill, 1fr);
     }
@@ -43,6 +47,9 @@
         h3{
             font-weight: bold;
             text-align: center;
+        }
+        .description{
+            min-height: 150px;
         }
     }
 }

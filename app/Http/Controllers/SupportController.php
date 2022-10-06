@@ -18,7 +18,7 @@ class SupportController extends Controller
     {
         // dd(Support::where('users_id', '=', Auth::user()->id)->get());
         $supports = Support::where('users_id', '=', Auth::user()->id)->get();
-        return view('mysupports', ['supports' => $supports]);
+        return view('supports.mysupports', compact('supports'));
     }
 
     /**
@@ -28,7 +28,7 @@ class SupportController extends Controller
      */
     public function create()
     {
-        //
+        return view('supports.create');
     }
 
     /**
@@ -39,7 +39,26 @@ class SupportController extends Controller
      */
     public function store(StoresupportRequest $request)
     {
-        //
+        $allparams = [];
+        $allparams['titre'] = $request->titre;
+        $allparams['description'] = $request->description;
+        $allparams['date_debut'] = $request->date_debut;
+        $allparams['date_fin'] = $request->date_fin;
+
+        $user = Auth::user(); // get user id from Auth::user
+        $allparams['users_id'] = $user->id;
+
+        if ($request->file('file')) {
+            $filename = time() . '.' . $request->file('file')->extension(); // nom du fichier uplod dans le storage
+            $allparams['piece_jointe'] = $request->file('file')->storeAs(
+                'supports',
+                $filename,
+                'public',
+            );
+        }
+        // dd($allparams);
+        Support::create($allparams);
+        return redirect('mysupports');
     }
 
     /**
@@ -50,7 +69,7 @@ class SupportController extends Controller
      */
     public function show(support $support)
     {
-        //
+        return view('supports.show', compact('support'));
     }
 
     /**
