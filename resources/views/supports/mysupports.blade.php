@@ -4,21 +4,7 @@
 @section('content')
 <div class="container-fluid ms-2 d-flex">
     
-    <div class="sidebar">
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('home') }}">Accueil</a>
-            </li>
-            <hr>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('create.supports') }}">Nouveau support</a>
-            </li>
-            <hr>
-            <li class="nav-item">
-                <a class="nav-link" href="">Autres</a>
-            </li>
-        </ul>
-    </div>
+    @include('layouts.sidebar')
 
     <div class="main">
         <div>
@@ -34,7 +20,13 @@
                             <p class="card-text"><b>Début : </b>{{ $support->date_debut }}</p>
                             <p class="card-text"><b>Fin : </b>{{ $support->date_fin }}</p>
                         </ul>
-                            
+                        <ul>
+                            @if (isset($support->piece_jointe))
+                                @foreach (json_decode($support->piece_jointe) as $item)
+                                    <li>{{ explode('/', $item)[1] }} &emsp; <a href="{{ asset('storage/'.$item) }}" target="_blank"><img src="{{ asset('assets/icones/download.svg') }}" alt="download"></a></li>
+                                @endforeach
+                            @endif
+                        </ul>
                         <div class="button">
                             <a href="{{ route('show.supports', ['support' => $support]) }}" class="btn btn-secondary">+ d'infos</a>
                         </div>

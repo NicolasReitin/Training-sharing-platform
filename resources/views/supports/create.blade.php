@@ -31,8 +31,8 @@
                 {{-- <label class="mt-2" for="sequences">Séquences</label>
                 <input type="text" name="sequences" id="sequences" class="form-control" style="width: 400px"> --}}
     
-                <label class="mt-2" for="file">Fichier à upload (.pdf, .ppt, .doc)</label>
-                <input type="file" class="form-control" name="file" id="file" style="width: 400px">
+                <label class="mt-2" for="filename">Fichiers à upload (.pdf, .ppt, .doc, .zip)</label>
+                <input type="file" class="form-control" name="filename[]" id="filename" style="width: 400px" multiple>
     
                 <input type="submit" class="btn btn-warning mt-3" style="width: 400px" name="Envoyer" value="Création du support" >
             </div>

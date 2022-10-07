@@ -47,15 +47,21 @@ class SupportController extends Controller
 
         $user = Auth::user(); // get user id from Auth::user
         $allparams['users_id'] = $user->id;
+        
+        if($request->hasfile('filename'))
+         {
+            foreach($request->file('filename') as $file)
+            {
+                $name=time() .'_'. $file->getClientOriginalName();
+                $data[] = $file->storeAs(
+                    'supports',
+                    $name,
+                    'public',
+                );  
+            }            
+            $allparams['piece_jointe'] = json_encode($data);
+         }
 
-        if ($request->file('file')) {
-            $filename = time() . '.' . $request->file('file')->extension(); // nom du fichier uplod dans le storage
-            $allparams['piece_jointe'] = $request->file('file')->storeAs(
-                'supports',
-                $filename,
-                'public',
-            );
-        }
         // dd($allparams);
         Support::create($allparams);
         return redirect('mysupports');

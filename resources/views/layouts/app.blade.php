@@ -27,15 +27,16 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+                    <ul class="navbar-nav me-auto gap-5">
                         @auth
                             @foreach ( Auth::user()->roles as $role)
                                 @if ($role->name === 'Admin')
-                                    <li><a href="{{ route('dashboard') }}">Admin Dashboard</a></li>
+                                    <li><a href="{{ route('dashboard') }}">ADMIN</a></li>
                                     @break
                                 @endif
                             @endforeach
-                        @endauth                    
+                        @endauth    
+                        <li><a href="{{ route('home') }}">HOME</a></li>                
                     </ul>
 
                     <!-- Right Side Of Navbar -->
