@@ -9,6 +9,17 @@
         <div>
         <h1><b>Création d'un nouveau support</b></h1>
         </div>
+{{-- error message because rules validation for files extensions --}}
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     <div class="mt-5 ms-5 d-flex justify-content-center">
         <form action="{{ route('store.supports') }}" method="POST" style="width: 100%" class="d-flex justify-content-center" enctype="multipart/form-data">
             @csrf
@@ -31,12 +42,11 @@
                 {{-- <label class="mt-2" for="sequences">Séquences</label>
                 <input type="text" name="sequences" id="sequences" class="form-control" style="width: 400px"> --}}
     
-                <label class="mt-2" for="filename">Fichiers à upload (.pdf, .ppt, .doc, .zip)</label>
+                <label class="mt-2" for="filename">Fichiers à upload (pdf, ppt, pptx, doc, docx, zip)</label>
                 <input type="file" class="form-control" name="filename[]" id="filename" style="width: 400px" multiple>
     
                 <input type="submit" class="btn btn-warning mt-3" style="width: 400px" name="Envoyer" value="Création du support" >
             </div>
-            
             
         </form>
     </div>

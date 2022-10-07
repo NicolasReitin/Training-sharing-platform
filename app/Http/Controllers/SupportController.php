@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\support;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoresupportRequest;
 use App\Http\Requests\UpdatesupportRequest;
 
@@ -50,9 +51,15 @@ class SupportController extends Controller
         
         if($request->hasfile('filename'))
          {
+            $this->validate($request, [
+
+                'filename' => 'required',
+                'filename.*' => 'mimes:doc,pdf,docx,pptx,zip'
+            ]);
+
             foreach($request->file('filename') as $file)
             {
-                $name=time() .'_'. $file->getClientOriginalName();
+                $name=time().'__'.$file->getClientOriginalName();
                 $data[] = $file->storeAs(
                     'supports',
                     $name,
@@ -64,7 +71,7 @@ class SupportController extends Controller
 
         // dd($allparams);
         Support::create($allparams);
-        return redirect('mysupports');
+        return redirect('mysupports')->with('success', 'Your files has been successfully added');
     }
 
     /**
@@ -109,6 +116,10 @@ class SupportController extends Controller
      */
     public function destroy(support $support)
     {
-        //
+        foreach (json_decode($support->piece_jointe) as $item) {
+            Storage::disk('public')->delete($item);
+        }
+        $support->delete();
+        return redirect('mysupports');
     }
 }
