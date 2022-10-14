@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home', ['supports' => Support::all()]);
+        return view('home', ['supports' => Support::orderBy('titre', 'desc')->paginate(15)]);
     }
 
     public function show(support $support)

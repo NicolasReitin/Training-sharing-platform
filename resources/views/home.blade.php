@@ -21,7 +21,9 @@
                     </div>
                 @endforeach
                 </div>
-                
+                <div class="paginate">
+                    {!! $supports->links() !!} 
+                </div>
             </div>
             
         </div>
