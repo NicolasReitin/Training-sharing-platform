@@ -116,10 +116,34 @@ class SupportController extends Controller
      */
     public function destroy(support $support)
     {
-        foreach (json_decode($support->piece_jointe) as $item) {
-            Storage::disk('public')->delete($item);
+        if (isset($support->piece_jointe)){
+            foreach (json_decode($support->piece_jointe) as $item) {
+                Storage::disk('public')->delete($item);
+            }
         }
         $support->delete();
         return redirect('mysupports');
+    }
+
+    public function deleteFile(support $support, $item)
+    {
+        
+        $newItem = 'supports/'.$item;
+        $array = json_decode($support->piece_jointe);
+
+        for ($i = 0; $i < count($array); $i++) {
+            if ($array[$i] == $newItem) {
+                array_splice($array, $i, 1);
+            }
+        }
+
+        $support->piece_jointe = json_encode($array);
+        $delete = $support->save();
+        
+        if ($delete) {
+        return redirect('mysupports');
+        }else{
+            return view('supports.show', compact('support'))->with('error', 'Something went wrong');
+        }
     }
 }

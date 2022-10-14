@@ -19,4 +19,9 @@ class support extends Model
         'sequence',
 
     ];
+
+    public function getNameFromUrl($item){
+        $urlItem = explode('/', $item)[1];
+        return $urlItem;
+    }
 }

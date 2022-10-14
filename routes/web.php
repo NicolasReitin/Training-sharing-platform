@@ -46,5 +46,9 @@ Route::get('/mysupports/edit/{support}', [SupportController::class, 'edit'])->na
 Route::put('/mysupports/update/{support}', [SupportController::class, 'update'])->name('update.supports')->middleware(['auth']);
 Route::delete('/mysupports/delete/{support}', [SupportController::class, 'destroy'])->name('delete.supports')->middleware(['auth']);
 
+Route::put('/mysupports/delete/{support}/{item}', [SupportController::class, 'deleteFile'])->name('delete.file');
+
+
+
 
 
