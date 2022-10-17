@@ -16,10 +16,10 @@ class EnsureUserHasRole
      */
     public function handle(Request $request, Closure $next, string $role)
     {
-        // if ($request->user()->role === $role) return $next($request); //si un seul role 
-        // dd($request); 
         if ($request->user()->roles()->where('name', '=', $role)->exists()) return $next($request); // si multi role
 
+        // if ($request->user()->role === $role) //si un seul role
+        // return $next($request);
         abort(403);
     }
 }

@@ -30,7 +30,7 @@
                     <ul class="navbar-nav me-auto gap-5">
                         @auth
                             @foreach ( Auth::user()->roles as $role)
-                                @if ($role->name === 'Admin')
+                                @if ($role->name === 'admin' OR $role->name === 'Admin')
                                     <li><a href="{{ route('dashboard') }}">ADMIN</a></li>
                                     @break
                                 @endif

@@ -17,7 +17,7 @@ class SupportController extends Controller
      */
     public function index()
     {
-        // dd(Support::where('users_id', '=', Auth::user()->id)->get());
+        //dd(Support::where('users_id', '=', Auth::user()->id)->get());
         $supports = Support::where('users_id', '=', Auth::user()->id)->get();
         return view('supports.mysupports', compact('supports'));
     }
@@ -141,7 +141,7 @@ class SupportController extends Controller
         $delete = $support->save();
         
         if ($delete) {
-        return redirect('mysupports');
+        return view('supports.show', compact('support'));
         }else{
             return view('supports.show', compact('support'))->with('error', 'Something went wrong');
         }

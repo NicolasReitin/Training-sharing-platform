@@ -13,21 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('supports', function (Blueprint $table) {
+        Schema::create('categorie_formateurs', function (Blueprint $table) {
             $table->id();
-            $table->string('titre');
-            $table->text('description')
-                ->nullable();
-            $table->date('date_debut')
-                ->nullable();
-            $table->date('date_fin')
-                ->nullable();
-            $table->text('piece_jointe')
-                ->nullable();
-            $table->text('sequence')
-                ->nullable();
-            $table->date('date_ajout')
-                ->nullable();
             $table->foreignId(column: 'users_id')->nullable()->default(null)->constrained(table: 'users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId(column: 'categorie_id')->nullable()->default(null)->constrained(table: 'categories')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
@@ -41,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('supports');
+        Schema::dropIfExists('categorie_formateurs');
     }
 };
