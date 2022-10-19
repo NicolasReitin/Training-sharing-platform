@@ -17,26 +17,39 @@
         <div class="main">
             <div>
                 {{-- barre de recherche --}}
-                <div class="searchbar">
+                <div class="searchbar mb-5">
                     <form action="" method="GET" class="d-flex gap-2">
                         <input type="search" class="form-control" name="search" placeholder="Search ..." id="" style="width: 300px">
                         <input type="submit" class="form-control btn btn-warning" name="envoyer" value="Search" style="width: 100px">
                     </form>
                 </div>
 
-                @foreach ($categories as $categorie)
-                <h1>{{  $categorie->titre }}</h1>
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="..." alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
+                @foreach ($categories as $categorie) <!-- On parcours toutes les catégories pour les afficher chacune -->
+                    <h2 class="mb-5" style="text-align: start; font-weight: bold">{{ $categorie->titre }}</h2>
+                    <div class="d-flex gap-5">
+                        @foreach ($categorie->users()->get() as $user) <!-- On parcours tous les users qui sont rattachés à la catégorie -->
+                            @foreach ($user->supports()->get() as $item) <!-- On parcours tous les supports de l'utilisateur  -->
+                                @if ($item->categorie_id == $categorie->id) <!-- si l'id de la categorie est égal à l'id de la categorie dans le support ET que celui-ci possède bien un support avec l'id de la categorie, alors on affiche l'utilisateur, sinon on ne l'affiche pas dans cette catégorie -->
+                                    <div class="card" style="width: 18rem;">
+                                        <h4 class="text-center">{{ ucfirst($user->name) }}</h4>
+                                        <div class="ms-3">
+                                            @foreach ($user->supports()->get() as $support) <!-- On parcours de nouveau tous les supports de l'utilisateur  -->
+                                                @if ($support->categorie_id == $categorie->id)
+                                                    <div class="card mb-2" style="width: 16rem;">
+                                                        <a href="{{ route('show.supports', ['support' => $support->id]) }}" style="text-decoration: none; color: black"><p class="ms-1">{{ strtoupper($support->titre) }}</p></a>                                                        
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    @break
+                                @endif
+                            @endforeach
+                        @endforeach
                     </div>
-                    {{-- div formateur par catégorie et y inclure les suppports par formateurs --}}
-                <hr>
+                    <hr>
                 @endforeach
                 
-                <h1>Supports de cours</h1>
                 <div class="cards mt-5">
                 <?php
                     if ($Supports->rowCount() > 0) {
@@ -46,12 +59,8 @@
                             $description = $support['description'];
                             ?>
                             <div class="card">
-                                <div class="card-body">
-                                    <h3 class="card-title"><?= $titre ?></h3>
-                                    <p class="card-text description mt-5"><?= $description ?></p>
-                                    <div class="button">
-                                        <a href="{{ route('show.supports', ['support' => $id]) }}" class="btn btn-secondary">+ d'infos</a>
-                                    </div>
+                                <div class="card-body d-flex">
+                                    <a href="{{ route('show.supports', ['support' => $id]) }}"><h5 class="card-title"><?= $titre ?></h5></a>
                                 </div>
                             </div>
                             <?php

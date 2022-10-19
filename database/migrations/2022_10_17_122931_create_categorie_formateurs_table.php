@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('categorie_formateurs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId(column: 'users_id')->nullable()->default(null)->constrained(table: 'users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId(column: 'user_id')->nullable()->default(null)->constrained(table: 'users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId(column: 'categorie_id')->nullable()->default(null)->constrained(table: 'categories')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

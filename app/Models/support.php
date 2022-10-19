@@ -15,7 +15,7 @@ class Support extends Model
         'date_debut',
         'date_fin',
         'piece_jointe',
-        'users_id',
+        'user_id',
         'sequence',
 
     ];

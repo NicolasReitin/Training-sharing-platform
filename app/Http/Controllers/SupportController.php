@@ -18,7 +18,7 @@ class SupportController extends Controller
     public function index()
     {
         //dd(Support::where('users_id', '=', Auth::user()->id)->get());
-        $supports = Support::where('users_id', '=', Auth::user()->id)->get();
+        $supports = Support::where('user_id', '=', Auth::user()->id)->get();
         return view('supports.mysupports', compact('supports'));
     }
 
@@ -47,7 +47,7 @@ class SupportController extends Controller
         $allparams['date_fin'] = $request->date_fin;
 
         $user = Auth::user(); // get user id from Auth::user
-        $allparams['users_id'] = $user->id;
+        $allparams['user_id'] = $user->id;
         
         if($request->hasfile('filename'))
          {
