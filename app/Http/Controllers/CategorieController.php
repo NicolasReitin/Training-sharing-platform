@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\categorie;
+use App\Models\Categorie;
 use App\Http\Requests\StorecategorieRequest;
 use App\Http\Requests\UpdatecategorieRequest;
 

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class support extends Model
+class Support extends Model
 {
     use HasFactory;
 
@@ -19,6 +19,14 @@ class support extends Model
         'sequence',
 
     ];
+
+    public function users() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function categorie() {
+        return $this->belongsTo(Categorie::class);
+    }
 
     public function getNameFromUrl($item){
         $urlItem = explode('/', $item)[1];

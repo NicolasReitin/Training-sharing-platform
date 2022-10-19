@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\support;
+use App\Models\Support;
+use App\Models\Categorie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -24,8 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home', ['supports' => Support::orderBy('titre', 'desc')->paginate(15)]);
+        $supports = Support::orderBy('titre', 'desc')->paginate(15);
+        $categories = Categorie::all();
+        return view('home', compact('supports', 'categories'));
     }
+
+
 
     public function show(support $support)
     {

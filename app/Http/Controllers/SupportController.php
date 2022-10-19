@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\support;
+use App\Models\Support;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoresupportRequest;

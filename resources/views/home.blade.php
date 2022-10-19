@@ -8,7 +8,6 @@
         $Supports = $bdd->query("SELECT * FROM supports WHERE (titre LIKE '%$recherche%' OR description LIKE '%$recherche%') ");
     }
 ?>
-
 @extends('layouts.app')
 
 @section('content')
@@ -24,6 +23,18 @@
                         <input type="submit" class="form-control btn btn-warning" name="envoyer" value="Search" style="width: 100px">
                     </form>
                 </div>
+
+                @foreach ($categories as $categorie)
+                <h1>{{  $categorie->titre }}</h1>
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="..." alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                    {{-- div formateur par catégorie et y inclure les suppports par formateurs --}}
+                <hr>
+                @endforeach
                 
                 <h1>Supports de cours</h1>
                 <div class="cards mt-5">
@@ -60,7 +71,5 @@
         </div>
     </div>
 
-
     @include('layouts.footer')
 @endsection
-

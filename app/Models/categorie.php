@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class categorie extends Model
+class Categorie extends Model
 {
     use HasFactory;
 
@@ -13,4 +13,12 @@ class categorie extends Model
         'titre',
         'description',
     ];
+
+    public function support() {
+        return $this->hasMany(Support::class);
+    }
+
+    public function users() {
+        return $this->belongsToMany(User::class);
+    }
 }
