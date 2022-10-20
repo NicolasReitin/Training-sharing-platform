@@ -58,5 +58,7 @@ Route::put('/categories/update/{categorie}', [CategorieController::class, 'updat
 Route::delete('/categories/delete/{categorie}', [CategorieController::class, 'destroy'])->name('delete.categories')->middleware(['auth']);
 
 
+//----------------------------------------------------------------CRUD Route::Search-------------------------------------------------------------
 
+Route::get('/home/search', [HomeController::class, 'search'])->name('home.search')->middleware(['auth']);
 

@@ -27,10 +27,46 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $supports = Support::orderBy('titre', 'desc')->paginate(15);
+        $supports = Support::orderBy('titre')->paginate(15);
         $categories = Categorie::all();
         return view('home', compact('supports', 'categories'));
     }
+
+
+    public function search()
+    {
+        $categories = Categorie::all();
+        $search = request('search');
+        $supports = Support::orderBy('titre')->paginate(15);
+        $users = User::all();
+
+        if (empty($search)) {
+            return view('home', compact('supports', 'categories'));
+        }
+        
+        $results = Support::where('titre', 'like', "%$search%")
+        ->orWhere('description', 'like', "%$search%")
+        ->orWhere('piece_jointe', 'like', "%$search%")->get();
+
+        // if (sizeof(Support::where('titre', 'like', "%$search%")
+        //     ->orWhere('description', 'like', "%$search%")
+        //     ->orWhere('piece_jointe', 'like', "%$search%")->get()) >0)
+        // {
+        //     $resultSup = Support::where('titre', 'like', "%$search%")
+        //     ->orWhere('description', 'like', "%$search%")
+        //     ->orWhere('piece_jointe', 'like', "%$search%");
+        // };
+        
+        // if (isset($resultSup)){
+        //     $resultSup = $resultSup->get();
+        // }else{
+        //     $resultSup = '';
+        // }     
+        //     // dd([$resultCat, $resultUser, $resultSup]);
+
+        return view('home', compact('users', 'supports', 'categories', 'results'));
+    }
+
 
 
 
