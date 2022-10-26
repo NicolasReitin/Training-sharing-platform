@@ -48,22 +48,6 @@ class HomeController extends Controller
         ->orWhere('description', 'like', "%$search%")
         ->orWhere('piece_jointe', 'like', "%$search%")->get();
 
-        // if (sizeof(Support::where('titre', 'like', "%$search%")
-        //     ->orWhere('description', 'like', "%$search%")
-        //     ->orWhere('piece_jointe', 'like', "%$search%")->get()) >0)
-        // {
-        //     $resultSup = Support::where('titre', 'like', "%$search%")
-        //     ->orWhere('description', 'like', "%$search%")
-        //     ->orWhere('piece_jointe', 'like', "%$search%");
-        // };
-        
-        // if (isset($resultSup)){
-        //     $resultSup = $resultSup->get();
-        // }else{
-        //     $resultSup = '';
-        // }     
-        //     // dd([$resultCat, $resultUser, $resultSup]);
-
         return view('home', compact('users', 'supports', 'categories', 'results'));
     }
 

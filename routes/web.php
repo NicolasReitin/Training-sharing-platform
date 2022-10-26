@@ -1,9 +1,14 @@
 <?php
 
+use App\Models\User;
+use App\Models\Support;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SupportController;
+use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\AdminUsersController;
+use App\Http\Controllers\AdminsupportsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +32,11 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
 Route::middleware(['auth', 'role:admin'])->name('dashboard')->group(function () {
-    Route::get('/private', function () {
-        // return 'Bonjour Admin';
-        return view('Auth/dashboard');
+    Route::get('/private', function () 
+    {
+        $users = User::orderBy('created_at', 'desc')->limit(5)->get();
+        $supports = Support::orderBy('created_at', 'desc')->limit(5)->get();
+        return view('Auth/Dashboard_Admin/dashboard', compact('users', 'supports'));
     });
 });
 
@@ -62,3 +69,24 @@ Route::delete('/categories/delete/{categorie}', [CategorieController::class, 'de
 
 Route::get('/home/search', [HomeController::class, 'search'])->name('home.search')->middleware(['auth']);
 
+
+
+
+//----------------------------------------------------------------ADMIN-------------------------------------------------------------
+                        //--------------------CRUD Route::users-------------------------
+Route::get('/users', [AdminUsersController::class, 'index'])->name('users')->middleware(['role:admin']);
+Route::get('/users/create', [AdminUsersController::class, 'create'])->name('create.user')->middleware(['role:admin']);
+Route::post('/users/create', [AdminUsersController::class, 'store'])->name('store.user')->middleware(['role:admin']);
+Route::get('/users/show/{user}', [AdminUsersController::class, 'show'])->name('show.user')->middleware(['role:admin']);
+Route::get('/users/edit/{user}', [AdminUsersController::class, 'edit'])->name('edit.user')->middleware(['role:admin']);
+Route::put('/users/update/{user}', [AdminUsersController::class, 'update'])->name('update.user')->middleware(['role:admin']);
+Route::delete('/users/delete/{user}', [AdminUsersController::class, 'destroy'])->name('delete.user')->middleware(['role:admin']);
+
+                        //--------------------CRUD Route::supports-------------------------
+Route::get('/supports', [AdminsupportsController::class, 'index'])->name('supports')->middleware(['role:admin']);
+Route::get('/supports/create', [AdminsupportsController::class, 'create'])->name('create.support')->middleware(['role:admin']);
+Route::post('/supports/create', [AdminsupportsController::class, 'store'])->name('store.support')->middleware(['role:admin']);
+Route::get('/supports/show/{support}', [AdminsupportsController::class, 'show'])->name('show.support')->middleware(['role:admin']);
+Route::get('/supports/edit/{support}', [AdminsupportsController::class, 'edit'])->name('edit.support')->middleware(['role:admin']);
+Route::put('/supports/update/{support}', [AdminsupportsController::class, 'update'])->name('update.support')->middleware(['role:admin']);
+Route::delete('/supports/delete/{support}', [AdminsupportsController::class, 'destroy'])->name('delete.support')->middleware(['role:admin']);

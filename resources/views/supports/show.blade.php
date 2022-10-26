@@ -21,29 +21,21 @@
 
 
 
-
-
-
-
-                        @if (isset($support->piece_jointe))
-                            @foreach (json_decode($support->piece_jointe) as $item)
-                            {{-- {{ explode('/', $item)[1]}} --}}
-                            <div class="d-flex gap-2 justify-content-center">
-                                <li class="mt-2"><a href="{{ asset('storage/'.$item) }}" target="_blank"><img class="me-2" src="{{ asset('assets/icones/download.svg') }}" alt="download">{{ explode('__', $item)[1] }}</a></li>
-                                <form action="{{ route('delete.file', ['support' => $support,'item' => $support->getNameFromUrl($item)]) }}" method="POST">
-                                    @method('PUT')
-                                    @csrf
-                                    <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Êtes vous sûr de vouloir supprimer ce fichier?')">X</button>
-                                </form>
-                            </div>
-                            @endforeach
-                        @endif 
+                @if (isset($support->piece_jointe))
+                    @foreach (json_decode($support->piece_jointe) as $item)
+                    {{-- {{ explode('/', $item)[1]}} --}}
+                    <div class="d-flex gap-2 justify-content-center">
+                        <li class="mt-2"><a href="{{ asset('storage/'.$item) }}" target="_blank"><img class="me-2" src="{{ asset('assets/icones/download.svg') }}" alt="download">{{ explode('__', $item)[1] }}</a></li>
+                        <form action="{{ route('delete.file', ['support' => $support,'item' => $support->getNameFromUrl($item)]) }}" method="POST">
+                            @method('PUT')
+                            @csrf
+                            <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Êtes vous sûr de vouloir supprimer ce fichier?')">X</button>
+                        </form>
+                    </div>
+                    @endforeach
+                @endif 
                         
                         
-
-
-
-
 
 
 

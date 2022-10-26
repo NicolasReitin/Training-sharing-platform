@@ -20,13 +20,17 @@
                 <div class="">
                     @if (isset($results)) <!--  -->
                         @if ($results)    <!-- Si dans la barre de recherche apparaît un support de cours -->  
-                                               
                             <h2 class="mb-4"><u><b>Supports</b></u> </h2>
-                            @foreach ($results as $result)
-                                @foreach ($supports as $support)
-                                    @if ($support->id == $result->id)   
+                            @foreach ($results as $result) <!-- On parcours l'ensemble des resultats et pour chacun... -->
+                                @foreach ($supports as $support) <!-- On parcours les supports -->
+                                    @if ($support->id == $result->id)  <!-- on compare l'id du support avec celui de la recherche -->
                                         <div class="card mb-3" style="width: 16rem;"> 
-                                            <a href="{{ route('show.supports', ['support' => $support->id]) }}" style="text-decoration: none; color: black"><p class="ms-3">{{ strtoupper($support->titre) }}</p></a>                                                        
+                                            <a href="{{ route('show.supports', ['support' => $support->id]) }}" style="text-decoration: none; color: black"><p class="ms-3">{{ $support->titre }}</p></a>   
+                                            @foreach ($users as $user) <!-- On veut afficher le nom du formateur du support -->
+                                                @if ($user->id == $support->user_id) <!-- On compare l'id des formateurs avec celui du support afin d'afficher son nom -->
+                                                    <p><u>Formateur</u> : <b>{{ $user->name }}</b></p>
+                                                @endif
+                                            @endforeach
                                         </div>                                     
                                     @endif
                                 @endforeach
@@ -47,7 +51,7 @@
                                                     @foreach ($user->supports()->get() as $support) <!-- On parcours de nouveau tous les supports de l'utilisateur  -->
                                                         @if ($support->categorie_id == $categorie->id)
                                                             <div class="card mb-2" style="width: 16rem;">
-                                                                <a href="{{ route('show.supports', ['support' => $support->id]) }}" style="text-decoration: none; color: black"><p class="ms-1">{{ strtoupper($support->titre) }}</p></a>                                                        
+                                                                <a href="{{ route('show.supports', ['support' => $support->id]) }}" style="text-decoration: none; color: black"><p class="ms-1">{{ $support->titre }}</p></a>                                                        
                                                             </div>
                                                         @endif
                                                     @endforeach

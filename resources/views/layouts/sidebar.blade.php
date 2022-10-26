@@ -4,6 +4,10 @@
         <h4><u></u></h4>
         <ul class="nav flex-column">
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('home') }}">Home</a>
+            </li>
+            <hr>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('mysupports') }}">Mes supports</a>
             </li>
             <hr>
@@ -29,7 +33,4 @@
             @endif
         @endforeach
     @endauth 
-
-    
-
 </div>
